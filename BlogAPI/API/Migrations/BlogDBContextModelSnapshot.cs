@@ -14,28 +14,27 @@ namespace API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("API.Model.BlogPost", b =>
                 {
-                    b.Property<int>("postId")
+                    b.Property<int>("blogPostId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("dateTime")
+                    b.Property<string>("blogDateTime")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("postContent")
+                    b.Property<int>("blogUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("bpContent")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("postId");
+                    b.HasKey("blogPostId");
 
                     b.ToTable("BlogPosts");
                 });

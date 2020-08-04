@@ -10,16 +10,16 @@ namespace API.Model
     public class BlogPost
     {
         [Key]
-        public int postId { get; set; }
+        public int blogPostId { get; set; }
         
-        [Column(TypeName = "nvarchar(100)")]
-        public int userId { get; set; }
+        [Column(TypeName = "int")]
+        public int blogUserId { get; set; }
 
         [Column(TypeName = "nvarchar(100)")] 
-        public string postContent { get; set; }
+        public string bpContent { get; set; }
         
         [Column(TypeName = "nvarchar(100)")]
-        public string dateTime { get; set; }
+        public string blogDateTime { get; set; }
 
     }
 }
