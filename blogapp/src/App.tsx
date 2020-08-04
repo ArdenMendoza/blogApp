@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Input, Button } from 'antd';
+import { BlogPostView } from './components/blogPostView';
+import { BlogListView } from './components/blogListView';
+import { FileAddOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import { BlogAppState } from './store/reducer/postReducer';
+import { Blog } from './model/model';
+
+const { Search } = Input;
 
 function App() {
+  const blogs = useSelector<BlogAppState, BlogAppState['blogs']>((state) => state.blogs)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button type="primary" icon={<FileAddOutlined />} size={'middle'} />
+      <Search
+        placeholder={'Search'}
+        onSearch={value => console.log(value)}
+        style={{ width: 200 }}
+      />
+      <BlogListView />
+      <BlogPostView />
     </div>
   );
 }
