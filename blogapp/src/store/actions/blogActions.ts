@@ -24,6 +24,12 @@ export const updateBlog = (payload: {postId: number, title: string, content: str
     payload
 });
 
+export interface IDeleteBlogAction extends IAction<number> { type: 'DELETE_BLOG'; }
+export const deleteBlog = (payload: number): IDeleteBlogAction => ({
+    type: 'DELETE_BLOG',
+    payload
+});
+
 export type searchBlogAction = { type: 'SEARCH_BLOG', payload: string }
 export const searchBlog = (payload: string): searchBlogAction => ({
     type: 'SEARCH_BLOG',

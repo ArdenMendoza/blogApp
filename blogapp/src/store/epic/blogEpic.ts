@@ -1,7 +1,7 @@
 import { filter, mergeMap, map, switchMap } from 'rxjs/operators';
 import { EMPTY, from, merge, Observable, concat } from 'rxjs';
 import { IBlogAppEpic } from "../store";
-import { getBlogs, IGetBlogsAction, loadBlogs, IAddBlogAction, updateBlog, IUpdateBlogAction, editBlogCancel } from "../actions/blogActions";
+import { getBlogs, IGetBlogsAction, loadBlogs, IAddBlogAction, updateBlog, IUpdateBlogAction, editBlogCancel, deleteBlog, IDeleteBlogAction } from "../actions/blogActions";
 import api from '../api';
 import { StateObservable } from 'redux-observable';
 
@@ -47,6 +47,20 @@ export const UpdateBlogEpic: IBlogAppEpic<IUpdateBlogAction> = (action$, state$)
                 bpContent: action.payload.content,
             }).then((res: any) => {
                 if (res.status === 204) return getBlogs();
+            }).then(r => {
+                return editBlogCancel();
+            });
+        })
+    )
+
+export const DeleteBlogEpic: IBlogAppEpic<IDeleteBlogAction> = (action$, state$) =>
+    action$.pipe(filter(a => a.type === 'DELETE_BLOG'),
+        switchMap(action => {
+            const d = new Date();
+            const time = d.toLocaleTimeString();
+            return api.blog().delete(action.payload).then((res: any) => {
+                console.log(res.status);
+                if (res.status === 200) return getBlogs();
             }).then(r => {
                 return editBlogCancel();
             });
