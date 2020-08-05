@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Blog } from '../model/model';
-import { BlogAppState } from '../store/reducer/postReducer';
+import { IBlogAppState } from '../store/store';
+
 import { Empty, Card, Space, Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { editBlog } from '../store/actions/blogActions';
@@ -33,14 +34,14 @@ const blogPostViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
             </div>
             <div style={{ flex: 1, flexDirection: 'row' }}>
                 {/* {selectedBlogPost?.bpContent} */}
-                <img src={'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}/>
+                <img alt={''} src={'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}/>
             </div>
             <Meta style={{marginTop: '20px'}} title={selectedBlogPost?.bpTitle} description={selectedBlogPost?.bpContent} />
         </Card>;
 }
 
-export const BlogPostView = connect<ReduxStateProps, DispatchProps, {}, BlogAppState>((state) => ({
-    selectedBlogPost: state.selectedBlogPost
+export const BlogPostView = connect<ReduxStateProps, DispatchProps, {}, IBlogAppState>((state) => ({
+    selectedBlogPost: state.blogState.selectedBlogPost
 }), dispatch => ({
     onBlogEdit: (blogPost: Blog) => dispatch(editBlog(blogPost))
 }))(blogPostViewDump);

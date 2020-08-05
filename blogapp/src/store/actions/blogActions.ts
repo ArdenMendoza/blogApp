@@ -1,6 +1,16 @@
 import { Blog } from '../../model/model';
+import { ISimpleAction } from './actionTypes';
 
-export type addBlogAction = { type: 'ADD_BLOG', payload: Blog; }
+export interface IGetBlogsAction extends ISimpleAction { type: 'GET_BLOGS'; }
+export const getBlogs = (): IGetBlogsAction => ({
+    type: 'GET_BLOGS',
+});
+
+export type addBlogAction = { type: 'ADD_BLOG', payload: {title: string, content: string}; }
+export const addBlog = (payload: {title: string, content: string}): addBlogAction => ({
+    type: 'ADD_BLOG',
+    payload
+});
 
 export type searchBlogAction = { type: 'SEARCH_BLOG', payload: string }
 export const searchBlog = (payload: string): searchBlogAction => ({

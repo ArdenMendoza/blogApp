@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Blog } from '../model/model';
-import { List, Space, Button } from 'antd';
-import { BlogAppState } from '../store/reducer/postReducer';
+import { List } from 'antd';
+import { IBlogAppState } from '../store/store';
 import { selectBlog } from '../store/actions/blogActions';
 
 interface ReduxStateProps {
@@ -30,10 +30,10 @@ const blogListViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
             itemLayout='vertical'
             size='large'
             pagination={{
-                onChange: page => {},
+                onChange: page => { },
                 pageSize: 2
             }}
-            loading={blogs.length === 0}
+            loading={blogs === undefined}
             dataSource={searchTerm ? getFiltered(searchTerm) : blogs}
             renderItem={(item: Blog) => (
                 <List.Item
@@ -56,10 +56,10 @@ const blogListViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
     )
 }
 
-export const BlogListView = connect<ReduxStateProps, DispatchProps, {}, BlogAppState>((state) => ({
-    blogs: state.blogs,
-    searchTerm: state.searchTerm,
-    selectedBlogPost: state.selectedBlogPost
+export const BlogListView = connect<ReduxStateProps, DispatchProps, {}, IBlogAppState>((state) => ({
+    blogs: state.blogState.blogs,
+    searchTerm: state.blogState.searchTerm,
+    selectedBlogPost: state.blogState.selectedBlogPost
 }), dispatch => ({
     onBlogClick: (blogPost: Blog) => dispatch(selectBlog(blogPost))
 }))(blogListViewDump);

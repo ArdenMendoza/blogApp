@@ -1,13 +1,14 @@
 import { Blog } from '../../model/model';
-import { addBlogAction, searchBlogAction, selectBlogAction, editBlogAction, editBlogCancelAction } from '../actions/blogActions'
-export interface BlogAppState {
+import { searchBlogAction, selectBlogAction, editBlogAction, editBlogCancelAction } from '../actions/blogActions'
+
+export interface IBlogState {
     blogs: Blog[];
     searchTerm?: string;
     selectedBlogPost?: Blog;
     isOnEditMode?: boolean;
 }
 
-const initialState: BlogAppState = {
+const initialState: IBlogState = {
     blogs: [
         {
             blogPostId: 1,
@@ -68,10 +69,8 @@ const initialState: BlogAppState = {
     ]
 }
 
-export const blogReducer = (state: BlogAppState = initialState, action: addBlogAction | searchBlogAction | selectBlogAction | editBlogAction | editBlogCancelAction): BlogAppState => {
+export const blogReducer = (state: IBlogState = initialState, action: searchBlogAction | selectBlogAction | editBlogAction | editBlogCancelAction): IBlogState => {
     switch (action.type) {
-        case 'ADD_BLOG':
-            return { ...state, blogs: [...state.blogs, action.payload] }
         case 'SEARCH_BLOG':
             return { ...state, searchTerm: action.payload }
         case 'SELECT_BLOG':
