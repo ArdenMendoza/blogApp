@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button, Row, Col, Modal } from 'antd';
+import { Input, Button, Row, Col, Modal, Typography } from 'antd';
 import { BlogPostView } from './blogPostView';
 import { BlogListView } from './blogListView';
 import { EditBlogPostView } from './editBlogView';
@@ -8,9 +8,10 @@ import { connect } from 'react-redux';
 import { IBlogAppState } from '../store/store';
 
 import { searchBlog, getBlogs, addBlog } from '../store/actions/blogActions';
-import { BookOutlined } from '@ant-design/icons';
+import { BookOutlined, SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons';
 
 const { Search, TextArea } = Input;
+const { Title } = Typography;
 
 interface ReduxStateProps {
   searchTerm?: string;
@@ -66,7 +67,8 @@ const MainPageDump: React.StatelessComponent<Props & ReduxStateProps & DispatchP
   }
 
   return (
-    <div style={{ padding: '100px', height: '100%' }}>
+    <div style={{ padding: '100px', height: '100%'}}>
+      <Title>Blog App</Title>
       <Row style={{ height: '100%', overflow: 'hidden' }}>
         <Col span={12} style={{ paddingRight: '20px' }}>
           <Search
@@ -76,9 +78,13 @@ const MainPageDump: React.StatelessComponent<Props & ReduxStateProps & DispatchP
             style={customStyles.spacing}
           />
           <Button type="primary" icon={<FileAddOutlined />} size={'middle'} onClick={() => setMState({ ...mState, visible: true })} >{'Create New Blog'}</Button>
+          <div>
+            <Button type="primary" icon={<SortAscendingOutlined />} size={'middle'} onClick={() => console.log('Sort Ascending')}></Button>
+            <Button type="primary" icon={<SortDescendingOutlined />} size={'middle'} onClick={() => console.log('Sort Descending')} ></Button>
+          </div>
           <BlogListView />
         </Col>
-        <Col span={12} style={{overflow: 'auto', height: '100%', padding: '10px'}}>
+        <Col span={12} style={{ overflow: 'auto', height: '100%', padding: '10px' }}>
           {
             isOnEditMode ? <EditBlogPostView /> : <BlogPostView />
           }
