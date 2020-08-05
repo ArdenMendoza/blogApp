@@ -6,6 +6,8 @@ import { Empty, Card, Space, Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { editBlog } from '../store/actions/blogActions';
 
+const { Meta } = Card;
+
 interface ReduxStateProps {
     selectedBlogPost?: Blog;
 }
@@ -29,9 +31,11 @@ const blogPostViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
             <div>
                 <IconText text="Edit" key="list-vertical-star-o" onClick={() => onBlogEdit(selectedBlogPost)} />
             </div>
-            <p>
-                {selectedBlogPost?.bpContent}
-            </p>
+            <div style={{ flex: 1, flexDirection: 'row' }}>
+                {/* {selectedBlogPost?.bpContent} */}
+                <img src={'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}/>
+            </div>
+            <Meta style={{marginTop: '20px'}} title={selectedBlogPost?.bpTitle} description={selectedBlogPost?.bpContent} />
         </Card>;
 }
 
