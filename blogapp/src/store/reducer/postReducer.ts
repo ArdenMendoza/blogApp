@@ -15,7 +15,6 @@ const initialState: IBlogState = {
 export const blogReducer = (state: IBlogState = initialState, action: searchBlogAction | selectBlogAction | editBlogAction | editBlogCancelAction | ILoadBlogsAction): IBlogState => {
     switch (action.type) {
         case 'LOAD_BLOGS':
-            console.log('reducer received: ', action.payload);
             return {...state, blogs: action.payload}
         case 'SEARCH_BLOG':
             return { ...state, searchTerm: action.payload }

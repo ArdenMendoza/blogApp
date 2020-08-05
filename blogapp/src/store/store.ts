@@ -3,8 +3,6 @@ import { blogReducer, IBlogState } from './reducer/postReducer';
 import { FetchBlogsEpic } from './epic/blogEpic';
 import { combineEpics, createEpicMiddleware, Epic } from 'redux-observable';
 
-// export const store = createStore(blogReducer);
-
 export interface IBlogAppState {
     blogState: IBlogState;
 }
