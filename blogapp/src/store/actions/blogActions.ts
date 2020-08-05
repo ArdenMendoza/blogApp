@@ -12,9 +12,15 @@ export const loadBlogs = (payload: Blog[]): ILoadBlogsAction => ({
     payload
 });
 
-export type addBlogAction = { type: 'ADD_BLOG', payload: {title: string, content: string}; }
-export const addBlog = (payload: {title: string, content: string}): addBlogAction => ({
+export interface IAddBlogAction extends IAction<{title: string, content: string}> { type: 'ADD_BLOG'; }
+export const addBlog = (payload: {title: string, content: string}): IAddBlogAction => ({
     type: 'ADD_BLOG',
+    payload
+});
+
+export interface IUpdateBlogAction extends IAction<{postId: number, title: string, content: string}> { type: 'UPDATE_BLOG'; }
+export const updateBlog = (payload: {postId: number, title: string, content: string}): IUpdateBlogAction => ({
+    type: 'UPDATE_BLOG',
     payload
 });
 
@@ -30,9 +36,9 @@ export const selectBlog = (payload: Blog): selectBlogAction => ({
     payload
 });
 
-export type editBlogAction = { type: 'EDIT_BLOG', payload: Blog }
-export const editBlog = (payload: Blog): editBlogAction => ({
-    type: 'EDIT_BLOG',
+export type editBlogAction = { type: 'EDIT_BLOG_BUTTON_CLICKED', payload: Blog }
+export const editBlogButtonClicked = (payload: Blog): editBlogAction => ({
+    type: 'EDIT_BLOG_BUTTON_CLICKED',
     payload
 });
 

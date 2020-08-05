@@ -20,10 +20,10 @@ export const blogReducer = (state: IBlogState = initialState, action: searchBlog
             return { ...state, searchTerm: action.payload }
         case 'SELECT_BLOG':
             return { ...state, selectedBlogPost: action.payload, isOnEditMode: false }
-        case 'EDIT_BLOG':
+        case 'EDIT_BLOG_BUTTON_CLICKED':
             return { ...state, selectedBlogPost: action.payload, isOnEditMode: true }
         case 'EDIT_BLOG_CANCEL':
-            return { ...state, isOnEditMode: false }
+            return { ...state, selectedBlogPost: undefined, isOnEditMode: false }
         default:
             return state;
     }

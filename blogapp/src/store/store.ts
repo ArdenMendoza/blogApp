@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose, Action } from 'redux';
 import { blogReducer, IBlogState } from './reducer/postReducer';
-import { FetchBlogsEpic } from './epic/blogEpic';
+import { FetchBlogsEpic, AddBlogEpic, UpdateBlogEpic} from './epic/blogEpic';
 import { combineEpics, createEpicMiddleware, Epic } from 'redux-observable';
 
 export interface IBlogAppState {
@@ -10,7 +10,7 @@ export interface IBlogAppState {
 export type IBlogAppEpic<T extends Action<any>> = Epic<T, any, IBlogAppState>;
 
 const configureEpic = () => {
-    return combineEpics(FetchBlogsEpic);
+    return combineEpics(FetchBlogsEpic, AddBlogEpic, UpdateBlogEpic);
 }
 
 const configureReducer = () =>

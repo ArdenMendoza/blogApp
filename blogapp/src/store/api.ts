@@ -6,7 +6,8 @@ export default {
         return {
             fetchAll: () => axios.get(url),
             fetchById: (id: string) => axios.get(url + id),
-            update: (id: string, updatedRecord: Blog) => axios.put(url = id, updatedRecord),
+            add: (blog: Blog) => axios.post(url + 'addBlog', blog),
+            update: (id: number, updatedRecord: Blog) => axios.put(url + id, updatedRecord),
             delete: (id: string) => axios.delete(url + id)
         }
     }

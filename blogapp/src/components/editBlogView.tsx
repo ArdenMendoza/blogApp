@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Blog } from '../model/model';
 import { IBlogAppState } from '../store/store';
 import { Input, Button } from 'antd';
-import { editBlogCancel } from '../store/actions/blogActions'
+import { editBlogCancel, updateBlog } from '../store/actions/blogActions'
 import { BookOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
@@ -12,7 +12,7 @@ interface ReduxStateProps {
     selectedBlogPost?: Blog;
 }
 interface DispatchProps {
-    onSave: (blogPostId: number, title: string, content: string) => void;
+    onSave: (postId: number, title: string, content: string) => void;
     onCancel: () => void;
 }
 
@@ -45,6 +45,6 @@ const EditBlogViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
 export const EditBlogPostView = connect<ReduxStateProps, DispatchProps, {}, IBlogAppState>((state) => ({
     selectedBlogPost: state.blogState.selectedBlogPost
 }), dispatch => ({
-    onSave: (blogPostId: number, title: string, content: string) => console.log('saving...', blogPostId, title, content),
+    onSave: (postId: number, title: string, content: string) => dispatch(updateBlog({postId, title, content})),
     onCancel: () => dispatch(editBlogCancel())
 }))(EditBlogViewDump);

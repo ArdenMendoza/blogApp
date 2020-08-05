@@ -7,7 +7,7 @@ import { FileAddOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { IBlogAppState } from '../store/store';
 
-import { searchBlog, getBlogs } from '../store/actions/blogActions';
+import { searchBlog, getBlogs, addBlog } from '../store/actions/blogActions';
 import { BookOutlined } from '@ant-design/icons';
 
 const { Search, TextArea } = Input;
@@ -105,7 +105,7 @@ export const MainPage = connect<ReduxStateProps, DispatchProps, {}, IBlogAppStat
 }), dispatch => ({
   getBlogs: () => dispatch(getBlogs()),
   onSearch: (searchText: string) => dispatch(searchBlog(searchText)),
-  onPostBlog: (title: string, content: string) => console.log(title, content)
+  onPostBlog: (title: string, content: string) => dispatch(addBlog({title, content}))
 }))(MainPageDump);
 
 export default MainPage;

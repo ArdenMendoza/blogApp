@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -80,6 +81,17 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBlogPost", new { id = blogPost.blogPostId }, blogPost);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("addBlog")]
+        public IActionResult AddBlog([FromBody] BlogPost blogPost)
+        {
+            _context.BlogPosts.Add(blogPost);
+            _context.SaveChanges();
+
+            CreatedAtAction("GetBlogPost", new { id = blogPost.blogPostId }, blogPost);
+            return Ok(new Response<BlogPost> { Success = true, Message = "Blog " + blogPost.bpTitle+ " added. " });
         }
 
         // DELETE: api/BlogPosts/5
