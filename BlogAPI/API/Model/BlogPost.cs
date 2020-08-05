@@ -15,6 +15,9 @@ namespace API.Model
         [Column(TypeName = "int")]
         public int blogUserId { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
+        public string bpTitle { get; set; }
+
         [Column(TypeName = "nvarchar(100)")] 
         public string bpContent { get; set; }
         

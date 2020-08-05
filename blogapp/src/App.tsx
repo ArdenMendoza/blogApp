@@ -8,7 +8,7 @@ import { FileAddOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { IBlogAppState } from './store/store';
 
-import { searchBlog } from './store/actions/blogActions';
+import { searchBlog, getBlogs } from './store/actions/blogActions';
 import { BookOutlined } from '@ant-design/icons';
 
 const { Search, TextArea } = Input;
@@ -18,6 +18,7 @@ interface ReduxStateProps {
   isOnEditMode?: boolean;
 }
 interface DispatchProps {
+  getBlogs: () => void
   onSearch: (searchText: string) => void;
   onPostBlog: (title: string, content: string) => void;
 }
@@ -37,7 +38,9 @@ const customStyles = {
 }
 
 const AppDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
-  const { onSearch, onPostBlog, isOnEditMode } = props;
+  const { getBlogs, onSearch, onPostBlog, isOnEditMode } = props;
+
+  getBlogs();
 
   const modalState = {
     visible: false,
@@ -61,6 +64,8 @@ const AppDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps>
     setTitle('');
     setContent('');
   }
+
+  
 
   return (
       <div className="App">
@@ -100,6 +105,7 @@ export const App = connect<ReduxStateProps, DispatchProps, {}, IBlogAppState>((s
   searchTerm: state.blogState.searchTerm,
   isOnEditMode: state.blogState.isOnEditMode,
 }), dispatch => ({
+  getBlogs: () => dispatch(getBlogs()),
   onSearch: (searchText: string) => dispatch(searchBlog(searchText)),
   onPostBlog: (title: string, content: string) => console.log(title, content)
 }))(AppDump);
