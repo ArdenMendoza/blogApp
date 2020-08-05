@@ -25,7 +25,7 @@ const BlogPostViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
     const { selectedBlogPost, onBlogEdit, onBlogDelete } = props;
     const IconText = ({ type, onClick }: { type: 'Edit' | 'Delete', onClick: () => void }) => (
         <Space>
-            <Button type="dashed" size={'small'} onClick={onClick} icon={type === 'Edit' ? <EditOutlined /> : <DeleteOutlined />}></Button>
+            <Button type={'ghost'} size={'small'} onClick={onClick} icon={type === 'Edit' ? <EditOutlined /> : <DeleteOutlined />}>{type === 'Edit' ? 'Edit' : 'Delete' }</Button>
         </Space>
     );
     const [modalState, setModalState] = React.useState({ visible: false, confirmLoading: false });
@@ -45,7 +45,7 @@ const BlogPostViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
             </div>
             <div style={{ flex: 1, flexDirection: 'row' }}>
                 {/* {selectedBlogPost?.bpContent} */}
-                <img alt={''} src={'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'} />
+                <img alt={''} src={'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'} width={'100%'}/>
             </div>
             <Meta style={{ marginTop: '20px' }} title={selectedBlogPost?.bpTitle} description={selectedBlogPost?.bpContent} />
             <Modal
