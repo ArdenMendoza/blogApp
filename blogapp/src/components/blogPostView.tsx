@@ -47,7 +47,7 @@ const BlogPostViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
                 {/* {selectedBlogPost?.bpContent} */}
                 <img alt={''} src={'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'} width={'100%'}/>
             </div>
-            <Meta style={{ marginTop: '20px' }} title={selectedBlogPost?.bpTitle} description={selectedBlogPost?.bpContent} />
+            <Meta style={{ marginTop: '20px' }} title={selectedBlogPost?.blogDateTime} description={selectedBlogPost?.bpContent} />
             <Modal
                 title="Delete Blog"
                 visible={modalState.visible}

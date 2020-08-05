@@ -18,7 +18,7 @@ namespace API.Model
         [Column(TypeName = "nvarchar(100)")]
         public string bpTitle { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")] 
+        [Column(TypeName = "nvarchar(MAX)")] 
         public string bpContent { get; set; }
         
         [Column(TypeName = "nvarchar(100)")]
