@@ -41,3 +41,8 @@
 html, body, #root, .App {
   height: 100%
 }
+
+.blogListItem:hover {
+  background: #95c9ff;
+  cursor: pointer;
+}

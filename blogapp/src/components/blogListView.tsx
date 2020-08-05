@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import { Blog } from '../model/model';
 import { List } from 'antd';
 import { BlogAppState } from '../store/reducer/postReducer';
+import { selectBlog } from '../store/actions/blogActions';
 
 interface ReduxStateProps {
-    blogs: Blog[]
+    blogs: Blog[];
+    searchTerm?: string;
+    selectedBlogPost?: Blog;
 }
 interface DispatchProps {
+    onBlogClick: (blogPost: Blog) => void;
 }
 
 type Props = {
@@ -15,27 +19,25 @@ type Props = {
 }
 
 const blogListViewDump: React.StatelessComponent<Props & ReduxStateProps & DispatchProps> = (props) => {
-    const { blogs } = props;
+    const { blogs, searchTerm, onBlogClick } = props;
+
+    const getFiltered = (searchTerm: string) => blogs.filter(f => {
+        return f.bpContent.includes(searchTerm) || f.bpTitle.includes(searchTerm);
+    });
     return (
         <List
             itemLayout='vertical'
             size='large'
             pagination={{
-                onChange: page => {
-                    console.log(page);
-                },
-                pageSize: 3
+                onChange: page => {},
+                pageSize: 2
             }}
             loading={blogs.length === 0}
-            dataSource={blogs}
+            dataSource={searchTerm ? getFiltered(searchTerm) : blogs}
             renderItem={(item: Blog) => (
                 <List.Item
                     key={item.bpTitle}
-                    actions={[
-                        // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                        // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                        // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                    ]}
+                    className={'blogListItem'}
                     extra={
                         <img
                             width={272}
@@ -43,21 +45,20 @@ const blogListViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
                             src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                         />
                     }
+                    onClick={e => onBlogClick(item)}
                 >
-                    {/* <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.href}>{item.title}</a>}
-              description={item.description}
-            /> */}
                     {item.bpContent}
                 </List.Item>
             )}
+
         />
     )
 }
 
-export const BlogListView = connect<ReduxStateProps, {}, {}, BlogAppState>((state) => ({
-    blogs: state.blogs
+export const BlogListView = connect<ReduxStateProps, DispatchProps, {}, BlogAppState>((state) => ({
+    blogs: state.blogs,
+    searchTerm: state.searchTerm,
+    selectedBlogPost: state.selectedBlogPost
 }), dispatch => ({
-    
+    onBlogClick: (blogPost: Blog) => dispatch(selectBlog(blogPost))
 }))(blogListViewDump);
