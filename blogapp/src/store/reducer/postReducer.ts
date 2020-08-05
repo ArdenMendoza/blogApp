@@ -1,9 +1,10 @@
 import { Blog } from '../../model/model';
-import { addBlogAction, searchBlogAction, selectBlogAction } from '../actions/blogActions'
+import { addBlogAction, searchBlogAction, selectBlogAction, editBlogAction, editBlogCancelAction } from '../actions/blogActions'
 export interface BlogAppState {
     blogs: Blog[];
     searchTerm?: string;
     selectedBlogPost?: Blog;
+    isOnEditMode?: boolean;
 }
 
 const initialState: BlogAppState = {
@@ -67,16 +68,18 @@ const initialState: BlogAppState = {
     ]
 }
 
-export const blogReducer = (state: BlogAppState = initialState, action: addBlogAction | searchBlogAction | selectBlogAction): BlogAppState => {
+export const blogReducer = (state: BlogAppState = initialState, action: addBlogAction | searchBlogAction | selectBlogAction | editBlogAction | editBlogCancelAction): BlogAppState => {
     switch (action.type) {
-        case 'ADD_BLOG': {
+        case 'ADD_BLOG':
             return { ...state, blogs: [...state.blogs, action.payload] }
-        }
         case 'SEARCH_BLOG':
             return { ...state, searchTerm: action.payload }
         case 'SELECT_BLOG':
-            console.log('set to: ' + action.payload);
-            return {...state, selectedBlogPost: action.payload}
+            return { ...state, selectedBlogPost: action.payload, isOnEditMode: false }
+        case 'EDIT_BLOG':
+            return { ...state, selectedBlogPost: action.payload, isOnEditMode: true }
+        case 'EDIT_BLOG_CANCEL':
+            return { ...state, isOnEditMode: false }
         default:
             return state;
     }

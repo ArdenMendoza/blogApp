@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Blog } from '../model/model';
-import { List } from 'antd';
+import { List, Space, Button } from 'antd';
 import { BlogAppState } from '../store/reducer/postReducer';
 import { selectBlog } from '../store/actions/blogActions';
 
@@ -24,6 +24,7 @@ const blogListViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
     const getFiltered = (searchTerm: string) => blogs.filter(f => {
         return f.bpContent.includes(searchTerm) || f.bpTitle.includes(searchTerm);
     });
+
     return (
         <List
             itemLayout='vertical'
@@ -47,7 +48,7 @@ const blogListViewDump: React.StatelessComponent<Props & ReduxStateProps & Dispa
                     }
                     onClick={e => onBlogClick(item)}
                 >
-                    {item.bpContent}
+                    <List.Item.Meta title={<a href={item.bpTitle} style={{ marginLeft: '10px' }}>{item.bpTitle}</a>} />
                 </List.Item>
             )}
 
