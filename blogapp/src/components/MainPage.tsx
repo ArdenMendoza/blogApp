@@ -66,8 +66,8 @@ const MainPageDump: React.StatelessComponent<Props & ReduxStateProps & DispatchP
   }
 
   return (
-    <div style={{ padding: '100px' }}>
-      <Row style={{ height: '100%' }}>
+    <div style={{ padding: '100px', height: '100%' }}>
+      <Row style={{ height: '100%', overflow: 'hidden' }}>
         <Col span={12} style={{ paddingRight: '20px' }}>
           <Search
             placeholder={'Search'}
@@ -78,7 +78,7 @@ const MainPageDump: React.StatelessComponent<Props & ReduxStateProps & DispatchP
           <Button type="primary" icon={<FileAddOutlined />} size={'middle'} onClick={() => setMState({ ...mState, visible: true })} >{'Create New Blog'}</Button>
           <BlogListView />
         </Col>
-        <Col span={12}>
+        <Col span={12} style={{overflow: 'auto', height: '100%', padding: '10px'}}>
           {
             isOnEditMode ? <EditBlogPostView /> : <BlogPostView />
           }
