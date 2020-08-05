@@ -66,36 +66,37 @@ const MainPageDump: React.StatelessComponent<Props & ReduxStateProps & DispatchP
   }
 
   return (
-      <div style={{padding: '100px'}}>
-        <Row style={{ height: '100%' }}>
-          <Col span={12} style={{paddingRight: '20px'}}>
-            <Search
-              placeholder={'Search'}
-              onSearch={value => onSearch(value)}
-              onChange={e => onSearch(e.currentTarget.value)}
-              style={customStyles.spacing}
-            />
-            <Button type="primary" icon={<FileAddOutlined />} size={'middle'} onClick={() => setMState({ ...mState, visible: true })} >{'Create New Blog'}</Button>
-            <BlogListView />
-          </Col>
-          <Col span={12}>
-            {
-              isOnEditMode ? <EditBlogPostView /> : <BlogPostView />
-            }
-          </Col>
-        </Row>
-        <Modal
-          title="Create New Blog"
-          visible={mState.visible}
-          onOk={postBlog}
-          okText={'Post'}
-          onCancel={resetDialog}
-          cancelText={'Cancel'}
-          confirmLoading={mState.confirmLoading}>
-          <Input style={customStyles.textboxSpacing} size="large" placeholder="Title" prefix={<BookOutlined />} value={title} onChange={e => setTitle(e.currentTarget.value)} />
-          <TextArea style={customStyles.textboxSpacing} rows={20} value={content} onChange={e => setContent(e.currentTarget.value)} />
-        </Modal>
-      </div >
+    <div style={{ padding: '100px' }}>
+      <Row style={{ height: '100%' }}>
+        <Col span={12} style={{ paddingRight: '20px' }}>
+          <Search
+            placeholder={'Search'}
+            onSearch={value => onSearch(value)}
+            onChange={e => onSearch(e.currentTarget.value)}
+            style={customStyles.spacing}
+          />
+          <Button type="primary" icon={<FileAddOutlined />} size={'middle'} onClick={() => setMState({ ...mState, visible: true })} >{'Create New Blog'}</Button>
+          <BlogListView />
+        </Col>
+        <Col span={12}>
+          {
+            isOnEditMode ? <EditBlogPostView /> : <BlogPostView />
+          }
+        </Col>
+      </Row>
+      <Modal
+        title="Create New Blog"
+        visible={mState.visible}
+        onOk={postBlog}
+        okText={'Post'}
+        okButtonProps={{ disabled: title === '' || content === '' }}
+        onCancel={resetDialog}
+        cancelText={'Cancel'}
+        confirmLoading={mState.confirmLoading}>
+        <Input style={customStyles.textboxSpacing} size="large" placeholder="Title" prefix={<BookOutlined />} value={title} onChange={e => setTitle(e.currentTarget.value)} />
+        <TextArea style={customStyles.textboxSpacing} rows={20} value={content} onChange={e => setContent(e.currentTarget.value)} />
+      </Modal>
+    </div >
   );
 }
 
@@ -105,7 +106,7 @@ export const MainPage = connect<ReduxStateProps, DispatchProps, {}, IBlogAppStat
 }), dispatch => ({
   getBlogs: () => dispatch(getBlogs()),
   onSearch: (searchText: string) => dispatch(searchBlog(searchText)),
-  onPostBlog: (title: string, content: string) => dispatch(addBlog({title, content}))
+  onPostBlog: (title: string, content: string) => dispatch(addBlog({ title, content }))
 }))(MainPageDump);
 
 export default MainPage;
